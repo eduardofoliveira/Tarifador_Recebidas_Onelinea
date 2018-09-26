@@ -1,9 +1,9 @@
 const mysql = require('mysql2/promise')
 
 module.exports = mysql.createPool({
-    host: '54.233.223.179',
+    host: '127.0.0.1',
     user: 'root',
-    password: '190790edu',
+    password: '5d5rBFA2bNugYDss',
     database: 'astpp',
     waitForConnections: true,
     connectionLimit: 10,
