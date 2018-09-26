@@ -1,6 +1,6 @@
 let calculadora = require('./calculador')
 
-/*calculadora.processar(0,0,30,6,0.60,50)
+/*calculadora.processar(0,0,60,60,0.0203,142)
   .then(custo => {
     console.log(custo)
   })*/
@@ -12,9 +12,9 @@ let searchRate = (tarifas, origin) => {
   for(let i = 0; i < tamanho; i++){
     origin = origin.substring(0, origin.length - 1)
     for(let a = 0; a < tarifas.length; a ++){
+      //console.log(tarifas[a].pattern, origin)
       if(tarifas[a].pattern === origin){
-        tarifaChamada = tarifas[a]
-        break
+        return tarifaChamada = tarifas[a]
       }
     }
   }
@@ -26,11 +26,12 @@ let executar = async () => {
   const db = await require('./db')
 
   let [tarifas] = await db.query("SELECT REPLACE(REPLACE(pattern, '^', ''), '.*', '') as pattern, comment, includedseconds, connectcost, init_inc, inc, cost FROM routes WHERE pricelist_id = 33")
-  let [chamadas] = await db.query("SELECT uniqueid, callerid, callednum, billseconds FROM cdrs WHERE accountid = 87 and type = 3 and debit = 0")
+  let [chamadas] = await db.query("SELECT uniqueid, callerid, callednum, billseconds FROM cdrs WHERE accountid = 87 and type = 3 and debit = 0 and billseconds > 0 and callstart >= CONVERT_TZ( now(), '+00:00','+03:00') - INTERVAL 1 HOUR")
   
   chamadas.map(item => {
     item.callerid = item.callerid.match(/<(.*)>/)[1]
     item.tarifa = searchRate(tarifas, item.callerid.toString())
+    //console.log(item.tarifa)
     return item
   })
 
