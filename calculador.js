@@ -1,4 +1,4 @@
-let processar = (connectionTime, connectionCost, initialIncrement, increment, valor, duracao) => {
+let calcularTarifa = (connectionTime, connectionCost, initialIncrement, increment, valor, duracao) => {
   return new Promise((resolve, reject) => {
     let duracaoCobranca = 0
     let custo = 0
@@ -27,5 +27,5 @@ let processar = (connectionTime, connectionCost, initialIncrement, increment, va
 }
 
 module.exports = {
-  processar
+  calcularTarifa
 }
