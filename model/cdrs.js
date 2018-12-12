@@ -55,7 +55,7 @@ let obterTarifasOneLinea = (conn) => {
 let atualizarChamadasOnelinea = (conn, chamadas) => {
   return new Promise(async (resolve, reject) => {
 
-    for(let i = 0; i < chamadas.length; i++){
+    for (let i = 0; i < chamadas.length; i++){
       if(chamadas[i].tarifa !== null){
         await conn.query(`
           UPDATE

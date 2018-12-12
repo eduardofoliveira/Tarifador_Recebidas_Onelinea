@@ -14,7 +14,10 @@ let executar = async () => {
 
   await cdrs.atualizarChamadasOnelinea(conn, chamadasCalculadas)
 
-  conn.end()
+  await conn.end()
+
+  console.log('Fechar')
+  process.exit(0)
 }
 
 executar()
